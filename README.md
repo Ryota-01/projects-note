@@ -1,3 +1,5 @@
+# 作業ノート(興行収支管理)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
