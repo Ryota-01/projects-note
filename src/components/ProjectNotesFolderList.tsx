@@ -32,7 +32,7 @@ export default function ProjectNotesFolderList() {
   }, []);
 
   const handleOnClick = (termData: TermData) => {
-    navigate(`/createprojectnotesfolder/${encodeURI(termData.termId)}term`, {
+    navigate(`/createprojectnotesfolder/${encodeURI(termData.termId)}`, {
       state: { termData: termData },
     });
   };

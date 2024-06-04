@@ -6,6 +6,7 @@ import RegistePartnerPage from "./pages/RegistePartnerPage";
 import CreateProjectNotesFolderPage from "./pages/CreateProjectNotesFolderPage";
 import ProjectNotesListPage from "./pages/ProjectNotesListPage";
 import PartnersListPage from "./pages/PartnersListPage";
+import CreateProjectNotePage from "./pages/CreateProjectNotePage";
 
 function App() {
   return (
@@ -19,13 +20,25 @@ function App() {
         <Route path="/registerpartner" element={<RegistePartnerPage />} />
 
         {/* 作業ノートフォルダ作成画面 */}
-        <Route path="/createprojectnotesfolder" element={<CreateProjectNotesFolderPage />} />
+        <Route
+          path="/createprojectnotesfolder"
+          element={<CreateProjectNotesFolderPage />}
+        />
 
         {/* 作業ノート一覧画面 */}
-        <Route path="/createprojectnotesfolder/:period" element={<ProjectNotesListPage />} />
+        <Route
+          path="/createprojectnotesfolder/:termId"
+          element={<ProjectNotesListPage />}
+        />
 
         {/* 取引先一覧画面 */}
         <Route path="/partnerslist" element={<PartnersListPage />} />
+
+        {/* 作業ノート作成画面 */}
+        <Route
+          path="/createprojectnotesfolder/:termId/createprojectnote"
+          element={<CreateProjectNotePage />}
+        />
       </Routes>
     </div>
   );
