@@ -7,6 +7,7 @@ import CreateProjectNotesFolderPage from "./pages/CreateProjectNotesFolderPage";
 import ProjectNotesListPage from "./pages/ProjectNotesListPage";
 import PartnersListPage from "./pages/PartnersListPage";
 import CreateProjectNotePage from "./pages/CreateProjectNotePage";
+import DetailProjectNotePage from "./pages/DetailProjectNotePage";
 
 function App() {
   return (
@@ -38,6 +39,12 @@ function App() {
         <Route
           path="/createprojectnotesfolder/:termId/createprojectnote"
           element={<CreateProjectNotePage />}
+        />
+
+        {/* 作業ノート詳細画面 */}
+        <Route
+          path="/createprojectnotesfolder/:termId/detailprojectnote"
+          element={<DetailProjectNotePage />}
         />
       </Routes>
     </div>

@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
-interface ProjectSummaryFormValueData {
-  projectName: string;
-  person: string;
-}
+type ProjectSummaryFormValueData = {
+  projectName?: string;
+  person?: string;
+};
 
 type ProjectSummaryFormValueDataProps = {
   setProjectSummaryFormData: React.Dispatch<
-    React.SetStateAction<ProjectSummaryFormValueData[] | undefined>
+    React.SetStateAction<ProjectSummaryFormValueData>
   >;
 };
 
@@ -18,15 +18,15 @@ export default function ProjectSummaryForm({
   const {
     register,
     watch,
-    control,
     formState: { errors },
   } = useForm<ProjectSummaryFormValueData>();
 
-  const watchedValues = useWatch<ProjectSummaryFormValueDataProps>({ control });
-
   useEffect(() => {
-    setProjectSummaryFormData([watchedValues]);
-  }, [watchedValues, setProjectSummaryFormData]);
+    const watchedValues = watch((value, { name, type }) => {
+      setProjectSummaryFormData(value);
+    });
+    return () => watchedValues.unsubscribe();
+  }, [watch, setProjectSummaryFormData]);
 
   return (
     <div>

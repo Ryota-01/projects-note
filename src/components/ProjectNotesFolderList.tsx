@@ -2,6 +2,18 @@ import { collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import {
+  Box,
+  Divider,
+  Grid,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+} from "@mui/material";
+import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
 
 interface TermData {
   termId: string;
@@ -37,21 +49,32 @@ export default function ProjectNotesFolderList() {
     });
   };
   return (
-    <>
-      <p>ProjectNotesFolderList</p>
-      <ul>
-        {termsData.length > 0 ? (
-          termsData.map((termData, index) => (
-            <li key={index}>
-              <button
-                onClick={() => handleOnClick(termData)}
-              >{`${termData.termId}期 作業ノートフォルダ`}</button>
-            </li>
-          ))
-        ) : (
-          <>フォルダが存在しません。</>
-        )}
-      </ul>
-    </>
+    <Box sx={{ width: "55%", margin: "48px auto" }}>
+      <Typography variant="h5" mb={4}>作業ノート一覧</Typography>
+      <Grid md={12}>
+        <List>
+          {termsData.length > 0 ? (
+            termsData.map((termData, index) => (
+              <>
+                <ListItemButton onClick={() => handleOnClick(termData)}>
+                  <ListItem>
+                    <ListItemIcon>
+                      <FolderOutlinedIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={`${termData.termId}期 作業ノートフォルダ`}
+                      color="text.secondary"
+                    />
+                  </ListItem>
+                </ListItemButton>
+                <Divider />
+              </>
+            ))
+          ) : (
+            <>フォルダが存在しません。</>
+          )}
+        </List>
+      </Grid>
+    </Box>
   );
 }

@@ -9,6 +9,17 @@ import {
   DocumentData,
 } from "firebase/firestore";
 import { db } from "../firebase";
+import {
+  Box,
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
+
 type ErrorMessage = string;
 
 export default function ProjectNotesListPage() {
@@ -19,6 +30,7 @@ export default function ProjectNotesListPage() {
   const [projectsNoteList, setProjectsNoteList] = useState<DocumentData[]>([]);
   const [errorMessage, setErrorMessage] = useState<ErrorMessage>("");
 
+  console.log(projectsNoteList);
   useEffect(() => {
     try {
       const fetchProjectNote = async () => {
@@ -41,33 +53,59 @@ export default function ProjectNotesListPage() {
   }, []);
 
   return (
-    <div>
+    <>
       <Header />
-      <h2>{termData.termId}期作業ノート一覧</h2>
-      <h5>
-        期間：{termData.startDate} 〜 {termData.endDate}
-      </h5>
-      <button
-        onClick={() =>
-          navigate(`/createprojectnotesfolder/${termId}/createprojectnote`, {
-            state: termData,
-          })
-        }
-      >
-        作業ノート作成
-      </button>
-      <ul>
-        {projectsNoteList.length > 0 ? (
-          projectsNoteList.map((projectList) => {
-            const projectTitle = projectList.projectSummaryFormData.map(
-              (projectSummary: any) => projectSummary.projectName
-            );
-            return <li>{projectTitle}</li>;
-          })
-        ) : (
-          <>{errorMessage}</>
-        )}
-      </ul>
-    </div>
+      <div>
+        <h2>{termData.termId}期作業ノート一覧</h2>
+        <h5>
+          期間：{termData.startDate} 〜 {termData.endDate}
+        </h5>
+        <button
+          onClick={() =>
+            navigate(`/createprojectnotesfolder/${termId}/createprojectnote`, {
+              state: termData,
+            })
+          }
+        >
+          作業ノート作成
+        </button>
+        <Box sx={{ width: "55%", margin: "48px auto" }}>
+          <List>
+            {projectsNoteList.length > 0 ? (
+              projectsNoteList.map((projectData, index) => {
+                return (
+                  <div key={index}>
+                    <ListItemButton
+                      onClick={() =>
+                        navigate(
+                          `/createprojectnotesfolder/${termId}/detailprojectnote`,
+                          {
+                            state: projectData,
+                          }
+                        )
+                      }
+                    >
+                      <ListItem>
+                        <ListItemIcon>
+                          <ArticleOutlinedIcon />
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={`${projectData.termId}FY_${projectData.projectSummaryFormData.projectName}`}
+                          secondary={`ID：${projectData.projectId}`}
+                          color="text.secondary"
+                        />
+                      </ListItem>
+                    </ListItemButton>
+                    <Divider />
+                  </div>
+                );
+              })
+            ) : (
+              <>{errorMessage}</>
+            )}
+          </List>
+        </Box>
+      </div>
+    </>
   );
 }

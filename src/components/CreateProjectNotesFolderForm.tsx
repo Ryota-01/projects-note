@@ -37,7 +37,7 @@ export default function CreateProjectNotesFolderForm() {
     }
   };
   return (
-    <div>
+    <>
       <form onSubmit={handleOnSubmit} method="get">
         <ul>
           <li>
@@ -75,6 +75,6 @@ export default function CreateProjectNotesFolderForm() {
           <input type="submit" value="フォルダを作成" />
         </ul>
       </form>
-    </div>
+    </>
   );
 }

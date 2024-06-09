@@ -17,10 +17,10 @@ import VenderForm from "../components/VenderForm";
 import CliantForm from "../components/CliantForm";
 import ProjectSummaryForm from "../components/ProjectSummaryForm";
 
-interface ProjectSummaryFormValueData {
-  projectName: string;
-  person: string;
-}
+type ProjectSummaryFormValueData = {
+  projectName?: string;
+  person?: string;
+};
 
 interface CliantFormValueData {
   billingDate: string;
@@ -47,7 +47,7 @@ export default function CreateProjectNotePage() {
   const location = useLocation();
   const termData = location.state;
   const [projectSummaryFormData, setProjectSummaryFormData] =
-    useState<ProjectSummaryFormValueData[]>();
+    useState<ProjectSummaryFormValueData>({});
   const [cliantFormData, setCliantFormData] = useState<CliantFormValueData[]>(
     []
   );
@@ -75,12 +75,13 @@ export default function CreateProjectNotePage() {
         alert("すでにプロジェクト情報が存在しています。");
       } else {
         const projectsDocRef = doc(projectsCollectionRef, projectId());
-        // await setDoc(projectsDocRef, {
-        //   termId: termData.termId,
-        //   projectSummaryFormData,
-        //   cliantFormData,
-        //   venderFormData,
-        // });
+        await setDoc(projectsDocRef, {
+          projectId: projectId(),
+          termId: termData.termId,
+          projectSummaryFormData,
+          cliantFormData,
+          venderFormData,
+        });
         alert("プロジェクト情報を保存しました");
         console.log("プロジェクト情報を保存しました");
       }
@@ -92,22 +93,24 @@ export default function CreateProjectNotePage() {
   return (
     <>
       <Header />
-      <p>CreateProjectNote</p>
-      <span>FY：</span>
-      <span>{termData.termId}FY</span>
+      <div>
+        <p>CreateProjectNote</p>
+        <span>FY：</span>
+        <span>{termData.termId}FY</span>
 
-      <form onSubmit={handleSubmit(handleRegisterProject)}>
-        <ProjectSummaryForm
-          setProjectSummaryFormData={setProjectSummaryFormData}
-        />
+        <form onSubmit={handleSubmit(handleRegisterProject)}>
+          <ProjectSummaryForm
+            setProjectSummaryFormData={setProjectSummaryFormData}
+          />
 
-        {/* 収入の部 */}
-        <CliantForm setCliantFormData={setCliantFormData} />
+          {/* 収入の部 */}
+          <CliantForm setCliantFormData={setCliantFormData} />
 
-        {/* 支出の部 */}
-        <VenderForm setVenderFormData={setVenderFormData} />
-        <input type="submit" value="登録" />
-      </form>
+          {/* 支出の部 */}
+          <VenderForm setVenderFormData={setVenderFormData} />
+          <input type="submit" value="登録" />
+        </form>
+      </div>
     </>
   );
 }
