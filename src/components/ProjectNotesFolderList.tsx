@@ -11,6 +11,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Paper,
   Typography,
 } from "@mui/material";
 import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
@@ -49,25 +50,33 @@ export default function ProjectNotesFolderList() {
     });
   };
   return (
-    <Box sx={{ width: "55%", margin: "48px auto" }}>
-      <Typography variant="h5" mb={4}>作業ノート一覧</Typography>
+    <Box
+      component={Paper}
+      sx={{ width: "72%", margin: "18px auto", padding: "32px" }}
+    >
+      <Typography variant="h6" mb={2} sx={{ textAlign: "left" }}>
+        作業ノート一覧
+      </Typography>
+      <Divider />
       <Grid md={12}>
         <List>
           {termsData.length > 0 ? (
             termsData.map((termData, index) => (
               <>
                 <ListItemButton onClick={() => handleOnClick(termData)}>
-                  <ListItem>
+                  <ListItem dense disableGutters disablePadding>
                     <ListItemIcon>
                       <FolderOutlinedIcon />
                     </ListItemIcon>
                     <ListItemText
                       primary={`${termData.termId}期 作業ノートフォルダ`}
-                      color="text.secondary"
+                      primaryTypographyProps={{
+                        fontWeight: "bold",
+                        color: "text.secondary",
+                      }}
                     />
                   </ListItem>
                 </ListItemButton>
-                <Divider />
               </>
             ))
           ) : (

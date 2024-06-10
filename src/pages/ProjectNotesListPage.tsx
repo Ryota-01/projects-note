@@ -11,12 +11,15 @@ import {
 import { db } from "../firebase";
 import {
   Box,
+  Button,
   Divider,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Paper,
+  Typography,
 } from "@mui/material";
 import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 
@@ -55,21 +58,36 @@ export default function ProjectNotesListPage() {
   return (
     <>
       <Header />
-      <div>
-        <h2>{termData.termId}期作業ノート一覧</h2>
-        <h5>
-          期間：{termData.startDate} 〜 {termData.endDate}
-        </h5>
-        <button
-          onClick={() =>
-            navigate(`/createprojectnotesfolder/${termId}/createprojectnote`, {
-              state: termData,
-            })
-          }
-        >
-          作業ノート作成
-        </button>
-        <Box sx={{ width: "55%", margin: "48px auto" }}>
+      <Box
+        component={Paper}
+        sx={{ width: "72%", margin: "18px auto", padding: "32px" }}
+      >
+        <Box mb={2} sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box sx={{ display: "flex", alignItems: "center" }} mb={1}>
+            <Typography variant="h6" mb={1} sx={{ textAlign: "left" }}>
+              {termData.termId}期作業ノート一覧{" "}
+            </Typography>
+            <Typography variant="body2" mb={1} sx={{ textAlign: "left" }}>
+              （期間：{termData.startDate} 〜 {termData.endDate}）
+            </Typography>
+          </Box>
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={() =>
+              navigate(
+                `/createprojectnotesfolder/${termId}/createprojectnote`,
+                {
+                  state: termData,
+                }
+              )
+            }
+          >
+            作業ノート作成
+          </Button>
+        </Box>
+        <Divider />
+        <Box sx={{ width: "100%", margin: "0 auto" }}>
           <List>
             {projectsNoteList.length > 0 ? (
               projectsNoteList.map((projectData, index) => {
@@ -85,27 +103,31 @@ export default function ProjectNotesListPage() {
                         )
                       }
                     >
-                      <ListItem>
+                      <ListItem dense disableGutters disablePadding>
                         <ListItemIcon>
                           <ArticleOutlinedIcon />
                         </ListItemIcon>
                         <ListItemText
                           primary={`${projectData.termId}FY_${projectData.projectSummaryFormData.projectName}`}
+                          primaryTypographyProps={{
+                            fontWeight: "bold",
+                            color: "text.secondary",
+                          }}
                           secondary={`ID：${projectData.projectId}`}
-                          color="text.secondary"
                         />
                       </ListItem>
                     </ListItemButton>
-                    <Divider />
                   </div>
                 );
               })
             ) : (
-              <>{errorMessage}</>
+              <Typography variant="h6" mt={3} color="text.secondary">
+                {errorMessage}
+              </Typography>
             )}
           </List>
         </Box>
-      </div>
+      </Box>
     </>
   );
 }
