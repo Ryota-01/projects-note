@@ -7,7 +7,6 @@ import {
   doc,
   getDocs,
   query,
-  serverTimestamp,
   setDoc,
   where,
 } from "firebase/firestore";
@@ -16,6 +15,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import VenderForm from "../components/VenderForm";
 import CliantForm from "../components/CliantForm";
 import ProjectSummaryForm from "../components/ProjectSummaryForm";
+import PaperComponent from "../components/PaperComponent";
 
 type ProjectSummaryFormValueData = {
   projectName?: string;
@@ -93,24 +93,26 @@ export default function CreateProjectNotePage() {
   return (
     <>
       <Header />
-      <div>
-        <p>CreateProjectNote</p>
-        <span>FY：</span>
-        <span>{termData.termId}FY</span>
+      <PaperComponent title={`${termData.termId}FY作業ノート作成`} subTitle="">
+        <div>
+          <p></p>
+          <span>FY：</span>
+          <span>{termData.termId}FY</span>
 
-        <form onSubmit={handleSubmit(handleRegisterProject)}>
-          <ProjectSummaryForm
-            setProjectSummaryFormData={setProjectSummaryFormData}
-          />
+          <form onSubmit={handleSubmit(handleRegisterProject)}>
+            <ProjectSummaryForm
+              setProjectSummaryFormData={setProjectSummaryFormData}
+            />
 
-          {/* 収入の部 */}
-          <CliantForm setCliantFormData={setCliantFormData} />
+            {/* 収入の部 */}
+            <CliantForm setCliantFormData={setCliantFormData} />
 
-          {/* 支出の部 */}
-          <VenderForm setVenderFormData={setVenderFormData} />
-          <input type="submit" value="登録" />
-        </form>
-      </div>
+            {/* 支出の部 */}
+            <VenderForm setVenderFormData={setVenderFormData} />
+            <input type="submit" value="登録" />
+          </form>
+        </div>
+      </PaperComponent>
     </>
   );
 }

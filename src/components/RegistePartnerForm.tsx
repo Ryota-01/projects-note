@@ -10,6 +10,7 @@ import {
 import { db } from "../firebase";
 import { nanoid } from "nanoid";
 import { useNavigate } from "react-router-dom";
+import { Box, TextField } from "@mui/material";
 
 export default function RegistePartnerForm() {
   const initialStateId = nanoid();
@@ -38,46 +39,48 @@ export default function RegistePartnerForm() {
         typeIsVender: typeIsVender, // typeIsCliantがtrueなら、支払先クライアント
         part: part === "select" ? "" : part,
       };
-      const partnersCollectionRef = collection(db, "partners");
-      const q = query(partnersCollectionRef, where("name", "==", name));
-      const querySnapshot = await getDocs(q);
-      if (!querySnapshot.empty) {
-        // 取引先が重複している場合
-        alert("すでに取引先が存在しています。");
-        throw new Error("すでに取引先が存在しています。");
-      } else {
-        const partnersDocRef = doc(partnersCollectionRef, initialStateId);
-        await setDoc(partnersDocRef, value);
-        alert("登録しました。");
-        navigate("/home");
-      }
+      console.log(value);
+      // const partnersCollectionRef = collection(db, "partners");
+      // const q = query(partnersCollectionRef, where("name", "==", name));
+      // const querySnapshot = await getDocs(q);
+      // if (!querySnapshot.empty) {
+      //   // 取引先が重複している場合
+      //   alert("すでに取引先が存在しています。");
+      //   throw new Error("すでに取引先が存在しています。");
+      // } else {
+      //   const partnersDocRef = doc(partnersCollectionRef, initialStateId);
+      //   await setDoc(partnersDocRef, value);
+      //   alert("登録しました。");
+      //   navigate("/home");
+      // }
     } catch (error: any) {
       console.error(error, error.message);
     }
   };
 
+  console.log(nameRef.current?.value);
+
   const onChange = (event: any) => {
     console.log(event.target.checked);
     if (event.target.checked) {
-      setIsChecked(false)
-      console.log(event.target.checked, isChecked)
+      setIsChecked(false);
+      console.log(event.target.checked, isChecked);
     }
   };
   return (
     <>
       <form onSubmit={handleOnSubmit}>
-        <ul>
-          <li>
-            <label htmlFor="name">取引先名：</label>
-            <input
-              name="name"
-              id="name"
-              type="text"
-              placeholder="例）西田亮太"
-              ref={nameRef}
-              required
-            />
-          </li>
+        <Box mt={4}　width="60%">
+          <TextField
+            name="name"
+            id="name"
+            type="text"
+            label="取引先名"
+            size="small"
+            inputRef={nameRef}
+            fullWidth
+            required
+          />
           <li>
             <input
               name="partnerType[]"
@@ -123,8 +126,8 @@ export default function RegistePartnerForm() {
               ref={contactInfoRef}
             />
           </li>
-        </ul>
-        <input type="submit" />
+          <input type="submit" />
+        </Box>
       </form>
     </>
   );

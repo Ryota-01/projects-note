@@ -2,6 +2,16 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { db } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
+import PaperComponent from "../components/PaperComponent";
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 
 interface PartnersData {
   contactInfo: string;
@@ -36,37 +46,50 @@ export default function PartnersListPage() {
     fetchPartners();
   }, []);
 
-  console.log(partnersData);
+  console.log(partnersData.length);
 
   return (
     <>
       <Header />
-      <div>
-        <p>PartnersListPage</p>
-        {partnersData.length > 0 ? (
-          partnersData.map((partner, index) => (
-            <ul key={index}>
-              <li>ID：{partner.partnerId}</li>
-              <li>名前：{partner.name}</li>
-              <li>{partner.typeIsCliant && <>取引タイプ：請求先</>}</li>
-              <li>{partner.typeIsCliant && <>取引タイプ：支払先</>}</li>
-              {partner.part !== undefined && partner.part !== null && (
-                <li>パート：{partner.part}</li>
+      <PaperComponent title="取引先一覧" subTitle={`（${partnersData.length}件）`}>
+        <TableContainer component={Paper} sx={{ marginTop: "32px" }}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell>取引先名</TableCell>
+                <TableCell>取引タイプ</TableCell>
+                <TableCell>パート</TableCell>
+                <TableCell>連絡先</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {partnersData.length > 0 ? (
+                partnersData.map((partner, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{partner.partnerId}</TableCell>
+                    <TableCell>{partner.name}</TableCell>
+                    <TableCell>
+                      {partner.typeIsCliant ? <>請求先</> : <>支払先</>}
+                    </TableCell>
+                    {partner.part !== undefined && partner.part !== null && (
+                      <TableCell>{partner.part}</TableCell>
+                    )}
+                    <TableCell>
+                      {partner.contactInfo !== undefined &&
+                        partner.contactInfo !== null && (
+                          <>{partner.contactInfo}</>
+                        )}
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <>{isEmptyMessage}</>
               )}
-              <li>
-                {partner.contactInfo !== undefined &&
-                  partner.contactInfo !== null && (
-                    <>連絡先：{partner.contactInfo}</>
-                  )}
-              </li>
-            </ul>
-          ))
-        ) : (
-          <>
-            <p>{isEmptyMessage}</p>
-          </>
-        )}
-      </div>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </PaperComponent>
     </>
   );
 }

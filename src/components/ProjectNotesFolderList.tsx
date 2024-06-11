@@ -15,6 +15,7 @@ import {
   Typography,
 } from "@mui/material";
 import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
+import PaperComponent from "./PaperComponent";
 
 interface TermData {
   termId: string;
@@ -50,14 +51,7 @@ export default function ProjectNotesFolderList() {
     });
   };
   return (
-    <Box
-      component={Paper}
-      sx={{ width: "72%", margin: "18px auto", padding: "32px" }}
-    >
-      <Typography variant="h6" mb={2} sx={{ textAlign: "left" }}>
-        作業ノート一覧
-      </Typography>
-      <Divider />
+    <PaperComponent title="作業ノート一覧" subTitle="">
       <Grid md={12}>
         <List>
           {termsData.length > 0 ? (
@@ -84,6 +78,6 @@ export default function ProjectNotesFolderList() {
           )}
         </List>
       </Grid>
-    </Box>
+    </PaperComponent>
   );
 }

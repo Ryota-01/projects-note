@@ -22,6 +22,7 @@ import {
   Typography,
 } from "@mui/material";
 import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
+import PaperComponent from "../components/PaperComponent";
 
 type ErrorMessage = string;
 
@@ -58,19 +59,11 @@ export default function ProjectNotesListPage() {
   return (
     <>
       <Header />
-      <Box
-        component={Paper}
-        sx={{ width: "72%", margin: "18px auto", padding: "32px" }}
+      <PaperComponent
+        title={`${termData.termId}期作業ノート一覧`}
+        subTitle={`（期間：${termData.startDate} 〜 ${termData.endDate}）`}
       >
-        <Box mb={2} sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Box sx={{ display: "flex", alignItems: "center" }} mb={1}>
-            <Typography variant="h6" mb={1} sx={{ textAlign: "left" }}>
-              {termData.termId}期作業ノート一覧{" "}
-            </Typography>
-            <Typography variant="body2" mb={1} sx={{ textAlign: "left" }}>
-              （期間：{termData.startDate} 〜 {termData.endDate}）
-            </Typography>
-          </Box>
+        <Box mb={2} sx={{ display: "flex", justifyContent: "space-between" }} mt={2}>
           <Button
             size="small"
             variant="outlined"
@@ -86,7 +79,6 @@ export default function ProjectNotesListPage() {
             作業ノート作成
           </Button>
         </Box>
-        <Divider />
         <Box sx={{ width: "100%", margin: "0 auto" }}>
           <List>
             {projectsNoteList.length > 0 ? (
@@ -127,7 +119,7 @@ export default function ProjectNotesListPage() {
             )}
           </List>
         </Box>
-      </Box>
+      </PaperComponent>
     </>
   );
 }
