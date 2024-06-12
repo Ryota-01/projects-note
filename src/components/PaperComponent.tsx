@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, Divider, Paper, Typography } from "@mui/material";
-import { Subtitles } from "@mui/icons-material";
 
 // Props の型を定義
 interface PaperComponentProps {
@@ -21,8 +20,11 @@ export default function PaperComponent({
         component={Paper}
         sx={{ width: "72%", margin: "18px auto", padding: "32px" }}
       >
-        <Typography variant="h6" mb={2} sx={{ textAlign: "left" }}>
-          {title}{subTitle}
+        <Typography variant="h6" sx={{ textAlign: "left" }}>
+          {title}
+        </Typography>
+        <Typography variant="body1" mb={2} sx={{ textAlign: "left" }} color="text.secondary">
+          {subTitle}
         </Typography>
         <Divider />
         {children}

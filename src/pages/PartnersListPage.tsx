@@ -46,8 +46,6 @@ export default function PartnersListPage() {
     fetchPartners();
   }, []);
 
-  console.log(partnersData.length);
-
   return (
     <>
       <Header />
@@ -56,8 +54,8 @@ export default function PartnersListPage() {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>ID</TableCell>
                 <TableCell>取引先名</TableCell>
+                <TableCell>ID</TableCell>
                 <TableCell>取引タイプ</TableCell>
                 <TableCell>パート</TableCell>
                 <TableCell>連絡先</TableCell>
@@ -67,8 +65,8 @@ export default function PartnersListPage() {
               {partnersData.length > 0 ? (
                 partnersData.map((partner, index) => (
                   <TableRow key={index}>
-                    <TableCell>{partner.partnerId}</TableCell>
                     <TableCell>{partner.name}</TableCell>
+                    <TableCell>{partner.partnerId}</TableCell>
                     <TableCell>
                       {partner.typeIsCliant ? <>請求先</> : <>支払先</>}
                     </TableCell>

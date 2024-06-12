@@ -3,16 +3,12 @@ import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import {
-  Box,
-  Divider,
   Grid,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Paper,
-  Typography,
 } from "@mui/material";
 import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
 import PaperComponent from "./PaperComponent";

@@ -1,0 +1,41 @@
+.projectNote_cliantTable,
+.projectNote_venderTable {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 0.8rem;
+}
+
+th {
+  background: lightgray;
+}
+
+td {
+  text-align: left;
+}
+
+/* 「収入の部」「支出の部」 */
+.income, .expenditures {
+  background: lightgreen;
+  border-color: black;
+  font-weight: bold;
+  text-align: left;
+}
+
+.projectNote_cliantTable,
+.projectNote_venderTable tr,
+th,
+td {
+  border: 1px, solid;
+  padding: 4px;
+  font-weight: normal;
+}
+
+.projectNote_venderTable {
+  margin-top: 24px;
+}
+
+.amount_tableData {
+  text-align: right;
+}
+

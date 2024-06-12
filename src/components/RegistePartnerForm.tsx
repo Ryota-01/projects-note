@@ -10,7 +10,14 @@ import {
 import { db } from "../firebase";
 import { nanoid } from "nanoid";
 import { useNavigate } from "react-router-dom";
-import { Box, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  MenuItem,
+  TextField,
+} from "@mui/material";
 
 export default function RegistePartnerForm() {
   const initialStateId = nanoid();
@@ -39,26 +46,23 @@ export default function RegistePartnerForm() {
         typeIsVender: typeIsVender, // typeIsCliantがtrueなら、支払先クライアント
         part: part === "select" ? "" : part,
       };
-      console.log(value);
-      // const partnersCollectionRef = collection(db, "partners");
-      // const q = query(partnersCollectionRef, where("name", "==", name));
-      // const querySnapshot = await getDocs(q);
-      // if (!querySnapshot.empty) {
-      //   // 取引先が重複している場合
-      //   alert("すでに取引先が存在しています。");
-      //   throw new Error("すでに取引先が存在しています。");
-      // } else {
-      //   const partnersDocRef = doc(partnersCollectionRef, initialStateId);
-      //   await setDoc(partnersDocRef, value);
-      //   alert("登録しました。");
-      //   navigate("/home");
-      // }
+      const partnersCollectionRef = collection(db, "partners");
+      const q = query(partnersCollectionRef, where("name", "==", name));
+      const querySnapshot = await getDocs(q);
+      if (!querySnapshot.empty) {
+        // 取引先が重複している場合
+        alert("すでに取引先が存在しています。");
+        throw new Error("すでに取引先が存在しています。");
+      } else {
+        const partnersDocRef = doc(partnersCollectionRef, initialStateId);
+        await setDoc(partnersDocRef, value);
+        alert("登録しました。");
+        navigate("/home");
+      }
     } catch (error: any) {
       console.error(error, error.message);
     }
   };
-
-  console.log(nameRef.current?.value);
 
   const onChange = (event: any) => {
     console.log(event.target.checked);
@@ -67,66 +71,112 @@ export default function RegistePartnerForm() {
       console.log(event.target.checked, isChecked);
     }
   };
+
+  const parts = [
+    {
+      value: "strings",
+      label: "ストリングス",
+    },
+    {
+      value: "drums",
+      label: "ドラム",
+    },
+    {
+      value: "guiter",
+      label: "ギター",
+    },
+    {
+      value: "bass",
+      label: "ベース",
+    },
+    {
+      value: "chorus",
+      label: "コーラス",
+    },
+    {
+      value: "arranger",
+      label: "アレンジャー",
+    },
+    {
+      value: "engineer",
+      label: "エンジニア",
+    },
+    {
+      value: "conductor",
+      label: "コンダクター",
+    },
+  ];
+
   return (
     <>
       <form onSubmit={handleOnSubmit}>
-        <Box mt={4}　width="60%">
-          <TextField
-            name="name"
-            id="name"
-            type="text"
-            label="取引先名"
-            size="small"
-            inputRef={nameRef}
-            fullWidth
-            required
-          />
-          <li>
-            <input
-              name="partnerType[]"
-              id="cliant"
-              type="checkbox"
-              value="請求先"
-              ref={checkbox1Ref}
+        <Box mt={4} width="70%">
+          <Box textAlign="left">
+            <TextField
+              name="name"
+              id="name"
+              type="text"
+              label="取引先名"
+              size="small"
+              margin="dense"
+              helperText="必須"
+              inputRef={nameRef}
+              fullWidth
+              required
+            />
+            <FormControlLabel
+              control={<Checkbox />}
+              label="請求先"
               onChange={onChange}
               required={isChecked}
+              inputRef={checkbox1Ref}
             />
-            <label htmlFor="cliant">請求先</label>
-            <input
-              name="partnerType[]"
-              id="vender"
-              type="checkbox"
-              value="支払先"
-              ref={checkbox2Ref}
+            <FormControlLabel
+              control={<Checkbox />}
+              label="支払先"
               onChange={onChange}
               required={isChecked}
+              inputRef={checkbox2Ref}
             />
-            <label htmlFor="vender">支払先</label>
-          </li>
-          <li>
-            <label htmlFor="part">パート：</label>
-            <select name="part" id="part" ref={partRef}>
-              <option value="select">選択してください(任意)</option>
-              <option value="strings">ストリングス</option>
-              <option value="drums">ドラム</option>
-              <option value="guiter">ギター</option>
-              <option value="bass">ベース</option>
-              <option value="chorus">コーラス</option>
-              <option value="arranger">アレンジャー</option>
-              <option value="engineer">エンジニア</option>
-              <option value="conductor">コンダクター</option>
-            </select>
-          </li>
-          <li>
-            <label htmlFor="contactInfo">連絡先：</label>
-            <input
+          </Box>
+          <Box mt={2}>
+            <TextField
+              name="part"
+              id="part"
+              label="パート"
+              margin="dense"
+              size="small"
+              helperText="選択してください（任意）"
+              defaultValue=""
+              inputRef={partRef}
+              sx={{ textAlign: "left" }}
+              fullWidth
+              select
+            >
+              {parts.map((part) => (
+                <MenuItem key={part.value} value={part.value}>
+                  {part.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Box>
+          <Box mt={2}>
+            <TextField
               name="contactInfo"
               id="contactInfo"
+              label="連絡先（省略化）"
               type="text"
-              ref={contactInfoRef}
+              size="small"
+              margin="dense"
+              inputRef={contactInfoRef}
+              fullWidth
             />
-          </li>
-          <input type="submit" />
+          </Box>
+          <Box mt={2} textAlign="left">
+            <Button variant="contained" type="submit">
+              送信
+            </Button>
+          </Box>
         </Box>
       </form>
     </>
