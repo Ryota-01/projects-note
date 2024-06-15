@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../components/Header";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import PaperComponent from "../components/PaperComponent";
 import "../css/DetailProjectNote.css";
+import ProjectNoteTable from "./ProjectNoteTable";
 
 export default function DetailProjectNotePage() {
   const location = useLocation();
   const projectNoteData = location.state;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (projectNoteData.length === 0) {
+      navigate("/home");
+    }
+  }, []);
+
   return (
     <>
       <Header />
@@ -14,10 +23,12 @@ export default function DetailProjectNotePage() {
         title={projectNoteData.projectSummaryFormData.projectName}
         subTitle={`ID：${projectNoteData.projectId}`}
       >
+      <ProjectNoteTable />
+
         <p>担当者：{projectNoteData.projectSummaryFormData.person}</p>
 
         {/* 請求先情報 */}
-        <table className="projectNote_cliantTable">
+        <table className="detailProjectNote_cliantTable">
           <thead>
             <tr>
               <th colSpan={5} className="income">
@@ -50,7 +61,7 @@ export default function DetailProjectNotePage() {
         </table>
 
         {/* 支払先情報 */}
-        <table className="projectNote_venderTable">
+        <table className="detailProjectNote_venderTable">
           <thead>
             <tr>
               <th colSpan={5} className="expenditures">

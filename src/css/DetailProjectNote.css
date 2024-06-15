@@ -1,12 +1,13 @@
-.projectNote_cliantTable,
-.projectNote_venderTable {
+.detailProjectNote_cliantTable,
+.detailProjectNote_venderTable {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
   font-size: 0.8rem;
 }
 
-th {
+.detailProjectNote_cliantTable th,
+.detailProjectNote_venderTable th {
   background: lightgray;
 }
 
@@ -15,27 +16,24 @@ td {
 }
 
 /* 「収入の部」「支出の部」 */
-.income, .expenditures {
+.income,
+.expenditures {
   background: lightgreen;
   border-color: black;
   font-weight: bold;
   text-align: left;
 }
 
-.projectNote_cliantTable,
-.projectNote_venderTable tr,
-th,
-td {
-  border: 1px, solid;
-  padding: 4px;
+.detailProjectNote_cliantTable tr, th, td,
+.detailProjectNote_venderTable tr th td {
+  border: 0.9px, solid;
   font-weight: normal;
 }
 
-.projectNote_venderTable {
+.detailProjectNote_venderTable {
   margin-top: 24px;
 }
 
 .amount_tableData {
   text-align: right;
 }
-
