@@ -14,11 +14,15 @@ import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
 import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
-import FormDialog from "./FormDialog";
+import CreateProjectNoteFormDialog from "./CreateProjectNoteFormDialog";
+import RegisterPartnerFormDialog from "./RegisterPartnerFormDialog";
 
 export default function Header() {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenCreateProjectNoteDialog, setIsOpenCreateProjectNoteDialog] =
+    useState(false);
+  const [isOpenRegisterPartnerDialog, setIsOpenRegisterPartnerDialog] =
+    useState(false);
   const [selectedPaths, setIsSelectedPaths] = useState({
     home: false,
     registerpartner: false,
@@ -67,8 +71,10 @@ export default function Header() {
             />
           </ListItem>
         </ListItemButton>
+
+        {/* 取引先登録 */}
         <ListItemButton
-          onClick={() => navigate("/registerpartner")}
+          onClick={() => setIsOpenRegisterPartnerDialog(true)}
           selected={selectedPaths.registerpartner}
         >
           <ListItem dense disableGutters disablePadding>
@@ -86,12 +92,8 @@ export default function Header() {
         </ListItemButton>
 
         {/* 作業ノートフォルダ作成 */}
-        {/* <ListItemButton
-          onClick={() => navigate("/createprojectnotesfolder")}
-          selected={selectedPaths.createprojectnotesfolder}
-        > */}
         <ListItemButton
-          onClick={() => setIsOpen(true)}
+          onClick={() => setIsOpenCreateProjectNoteDialog(true)}
           selected={selectedPaths.createprojectnotesfolder}
         >
           <ListItem dense disableGutters disablePadding>
@@ -125,7 +127,18 @@ export default function Header() {
           </ListItem>
         </ListItemButton>
       </List>
-      {isOpen && <FormDialog isOpen={isOpen} setIsOpen={setIsOpen}/>}
+      {isOpenRegisterPartnerDialog && (
+        <RegisterPartnerFormDialog
+          isOpenRegisterPartnerDialog={isOpenRegisterPartnerDialog}
+          setIsOpenRegisterPartnerDialog={setIsOpenRegisterPartnerDialog}
+        />
+      )}
+      {isOpenCreateProjectNoteDialog && (
+        <CreateProjectNoteFormDialog
+          isOpenCreateProjectNoteDialog={isOpenCreateProjectNoteDialog}
+          setIsOpenCreateProjectNoteDialog={setIsOpenCreateProjectNoteDialog}
+        />
+      )}
     </div>
   );
 }

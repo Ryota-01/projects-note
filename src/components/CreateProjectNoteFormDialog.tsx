@@ -7,29 +7,29 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
-import { Link, useNavigate } from "react-router-dom";
 import { DialogContentText, Grid } from "@mui/material";
 import ErrorAlert from "./Alerts";
 import CustomizedSnackbars from "./Snackbars";
 
 interface Props {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpenCreateProjectNoteDialog: boolean;
+  setIsOpenCreateProjectNoteDialog: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
 }
 
-export default function FormDialog(props: Props) {
+export default function CreateProjectNoteFormDialog(props: Props) {
   const [open, setOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const handleClose = () => {
-    props.setIsOpen(false);
+    props.setIsOpenCreateProjectNoteDialog(false);
   };
   const termRef = useRef<HTMLInputElement>(null);
   const startDateRef = useRef<HTMLInputElement>(null);
   const endDateRef = useRef<HTMLInputElement>(null);
-  const navigate = useNavigate();
 
   const handleOnSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -63,7 +63,7 @@ export default function FormDialog(props: Props) {
   };
 
   useEffect(() => {
-    setOpen(props.isOpen);
+    setOpen(props.isOpenCreateProjectNoteDialog);
   }, []);
 
   return (
@@ -99,7 +99,7 @@ export default function FormDialog(props: Props) {
           </DialogContentText>
           <form onSubmit={handleOnSubmit} method="get">
             <Grid container spacing={2}>
-              <Grid item md={12}>
+              <Grid item xs={12} md={12}>
                 <TextField
                   name="folderName"
                   id="folderName"
@@ -113,7 +113,7 @@ export default function FormDialog(props: Props) {
                   required
                 />
               </Grid>
-              <Grid item md={12}>
+              <Grid item xs={12} md={12}>
                 <TextField
                   name="startDate"
                   id="startDate"
@@ -126,7 +126,7 @@ export default function FormDialog(props: Props) {
                   required
                 />
               </Grid>
-              <Grid item md={12}>
+              <Grid item xs={12} md={12}>
                 <TextField
                   name="endDate"
                   id="endDate"
