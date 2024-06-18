@@ -2,7 +2,6 @@ import React from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import RegistePartnerPage from "./pages/RegistePartnerPage";
 import ProjectNotesListPage from "./pages/ProjectNotesListPage";
 import PartnersListPage from "./pages/PartnersListPage";
 import CreateProjectNotePage from "./pages/CreateProjectNotePage";
@@ -15,9 +14,6 @@ function App() {
         {/* ホーム画面 */}
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
-
-        {/* 取引先登録ページ */}
-        <Route path="/registerpartner" element={<RegistePartnerPage />} />
 
         {/* 作業ノート一覧画面 */}
         <Route

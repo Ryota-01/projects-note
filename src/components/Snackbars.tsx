@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-import Button from "@mui/material/Button";
+import React, { useEffect } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
@@ -11,11 +10,6 @@ interface Props {
 
 export default function CustomizedSnackbars(props: Props) {
   const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-
   const handleClose = (
     event?: React.SyntheticEvent | Event,
     reason?: string

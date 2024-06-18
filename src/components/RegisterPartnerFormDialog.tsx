@@ -12,9 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import {
-  DialogContentText,
   Grid,
-  Box,
   Button,
   Checkbox,
   Dialog,
