@@ -23,8 +23,7 @@ export default function DetailProjectNotePage() {
         title={projectNoteData.projectSummaryFormData.projectName}
         subTitle={`ID：${projectNoteData.projectId}`}
       >
-      <ProjectNoteTable />
-
+      {/* <ProjectNoteTable /> */}
         <p>担当者：{projectNoteData.projectSummaryFormData.person}</p>
 
         {/* 請求先情報 */}
