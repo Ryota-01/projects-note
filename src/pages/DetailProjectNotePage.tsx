@@ -63,6 +63,7 @@ export default function DetailProjectNotePage() {
         <table className="detailProjectNote_venderTable">
           <thead>
             <tr>
+              
               <th colSpan={5} className="expenditures">
                 支出の部
               </th>
