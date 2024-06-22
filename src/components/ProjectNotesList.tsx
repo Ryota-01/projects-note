@@ -6,3 +6,4 @@ export default function ProjectNotesList() {
     <div>ProjectNotesList</div>
   )
 }
+
