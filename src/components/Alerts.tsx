@@ -7,4 +7,5 @@ interface Message {
 
 export default function ErrorAlert(props: Message) {
   return <Alert severity="error">{props.message}</Alert>;
+  
 }
