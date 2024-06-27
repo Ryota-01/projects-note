@@ -71,18 +71,6 @@ export default function CreateProjectNoteFormDialog(props: Props) {
       <Dialog
         open={open}
         onClose={handleClose}
-        // onSubmit={handleOnSubmit}
-        // PaperProps={{
-        //   component: "form",
-        //   onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
-        //     event.preventDefault();
-        //     const formData = new FormData(event.currentTarget);
-        //     const formJson = Object.fromEntries((formData as any).entries());
-        //     const email = formJson.email;
-        //     console.log(email);
-        //     handleClose();
-        //   },
-        // }}
       >
         <DialogTitle>作業ノートフォルダ作成</DialogTitle>
         <DialogContent>
