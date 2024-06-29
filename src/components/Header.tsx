@@ -29,6 +29,7 @@ export default function Header() {
     createprojectnotesfolder: false,
     partnerslist: false,
   });
+  
   const location = useLocation();
 
   useEffect(() => {
