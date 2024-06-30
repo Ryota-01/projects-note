@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import Header from "../components/Header";
 import { useLocation, useNavigate } from "react-router-dom";
 import PaperComponent from "../components/PaperComponent";
-import "../css/DetailProjectNote.css";
-import ProjectNoteTable from "./ProjectNoteTable";
+// import ProjectNoteTable from "./ProjectNoteTable";
 
 export default function DetailProjectNotePage() {
   const location = useLocation();
