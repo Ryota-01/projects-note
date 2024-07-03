@@ -8,6 +8,7 @@ export default function DetailProjectNotePage() {
   const projectNoteData = location.state;
   const navigate = useNavigate();
 
+  
   useEffect(() => {
     if (projectNoteData.length === 0) {
       navigate("/home");
