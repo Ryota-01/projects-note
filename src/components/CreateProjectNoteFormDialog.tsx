@@ -136,5 +136,6 @@ export default function CreateProjectNoteFormDialog(props: Props) {
         </DialogContent>
       </Dialog>
     </>
+    
   );
 }
