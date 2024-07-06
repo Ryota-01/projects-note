@@ -29,7 +29,7 @@ export default function Header() {
     createprojectnotesfolder: false,
     partnerslist: false,
   });
-  
+
   const location = useLocation();
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function Header() {
         component="nav"
         sx={{ width: "100%" }}
         subheader={
-          <ListSubheader sx={{ backgroundColor: "none" }}>MENU</ListSubheader>
+          <ListSubheader sx={{ background:"#F7FAFD" }}>MENU</ListSubheader>
         }
       >
         <Divider />

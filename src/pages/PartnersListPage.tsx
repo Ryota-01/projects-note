@@ -12,6 +12,8 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { tableCellClasses } from "@mui/material/TableCell";
 
 interface PartnersData {
   contactInfo: string;
@@ -21,6 +23,25 @@ interface PartnersData {
   typeIsCliant: boolean;
   typeIsVender: boolean;
 }
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  "&:nth-of-type td, &:last-child th": {
+    border: 0,
+  },
+}));
 
 export default function PartnersListPage() {
   const [partnersData, setPartnersData] = useState<PartnersData[]>([]);
@@ -49,37 +70,40 @@ export default function PartnersListPage() {
   return (
     <>
       <Header />
-      <PaperComponent title="取引先一覧" subTitle={`（${partnersData.length}件）`}>
+      <PaperComponent
+        title="取引先一覧"
+        subTitle={`（${partnersData.length}件）`}
+      >
         <TableContainer component={Paper} sx={{ marginTop: "32px" }}>
-          <Table>
+          <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell>取引先名</TableCell>
-                <TableCell>ID</TableCell>
-                <TableCell>取引タイプ</TableCell>
-                <TableCell>パート</TableCell>
-                <TableCell>連絡先</TableCell>
+                <StyledTableCell>取引先名</StyledTableCell>
+                <StyledTableCell>ID</StyledTableCell>
+                <StyledTableCell>取引タイプ</StyledTableCell>
+                <StyledTableCell>パート</StyledTableCell>
+                <StyledTableCell>連絡先</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {partnersData.length > 0 ? (
                 partnersData.map((partner, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{partner.name}</TableCell>
-                    <TableCell>{partner.partnerId}</TableCell>
-                    <TableCell>
+                  <StyledTableRow key={index}>
+                    <StyledTableCell>{partner.name}</StyledTableCell>
+                    <StyledTableCell>{partner.partnerId}</StyledTableCell>
+                    <StyledTableCell>
                       {partner.typeIsCliant ? <>請求先</> : <>支払先</>}
-                    </TableCell>
+                    </StyledTableCell>
                     {partner.part !== undefined && partner.part !== null && (
-                      <TableCell>{partner.part}</TableCell>
+                      <StyledTableCell>{partner.part}</StyledTableCell>
                     )}
-                    <TableCell>
+                    <StyledTableCell>
                       {partner.contactInfo !== undefined &&
                         partner.contactInfo !== null && (
                           <>{partner.contactInfo}</>
                         )}
-                    </TableCell>
-                  </TableRow>
+                    </StyledTableCell>
+                  </StyledTableRow>
                 ))
               ) : (
                 <>{isEmptyMessage}</>
